@@ -31,56 +31,56 @@
 					<span>
 						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"/>
 						<label for="profil1">
-							<img src="profilPics/profil1.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil1.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil2" id="profil2" class="radio-picture"/>
 						<label for="profil2">
-							<img src="profilPics/profil2.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil2.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil3" id="profil3" class="radio-picture"/>
 						<label for="profil3">
-							<img src="profilPics/profil3.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil3.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil4" id="profil4" class="radio-picture"/>
 						<label for="profil4">
-							<img src="profilPics/profil4.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil4.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil5" id="profil5" class="radio-picture"/>
 						<label for="profil5">
-							<img src="profilPics/profil5.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil5.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil6" id="profil6" class="radio-picture"/>
 						<label for="profil6">
-							<img src="profilPics/profil6.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil6.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil7" id="profil7" class="radio-picture"/>
 						<label for="profil7">
-							<img src="profilPics/profil7.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil7.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
 						<input type="radio" name="profil" value="profil8" id="profil8" class="radio-picture"/>
 						<label for="profil8">
-							<img src="profilPics/profil8.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil8.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 				</div>
@@ -98,7 +98,6 @@
 </html>
 
 
-
 <?php
 
 	if(isset($_POST["submitBtn"]))
@@ -111,7 +110,7 @@
 				{
 					$psw = password_hash(htmlspecialchars($_POST["mdp"]), PASSWORD_BCRYPT);
 					sql_request("INSERT INTO utilisateurs(`id`,`pseudo`,`psw`,`profilPic`)
-					VALUES (NULL, '".$_POST["pseudo"]."', '".$psw."', 'profilPics/".$_POST["profil"].".png')");
+					VALUES (NULL, '".$_POST["pseudo"]."', '".$psw."', 'assets/profilPics/".$_POST["profil"].".png')");
 					header("location:connexion.php");
 				}
 			}

@@ -14,6 +14,7 @@
 	else { ?>
 	
 		<a href="memory.php">Memory</a>
+		<a href="profil.php">Profil</a>
 		<a href="index.php?deconnexion=true">Déconnexion</a>
 	
 	<?php 
@@ -32,7 +33,6 @@
 			header("location:index.php");
 		}
 	}
-
 ?>
 
 </nav>

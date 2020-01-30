@@ -62,3 +62,20 @@ html, body {
 .inscription-profil-image:hover {
 	transform:scale(1.1);
 } 
+
+#profil-image {
+	height:50px;
+}
+
+#profilPic-container {
+	width:60px;
+	height:60px;
+	
+	background-image:url(assets/back.png);
+	background-repeat:no-repeat;
+	background-size:60px 60px;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
