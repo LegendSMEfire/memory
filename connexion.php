@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href=""/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<title> </title>
 	</head>
 
@@ -40,11 +40,10 @@
 	if(isset($_POST["submitBtn"])) {
 		if(required($_POST))
 		{
-			$usr = sql_request("SELECT id, psw FROM utilisateurs WHERE pseudo = '".$_POST["pseudo"]."'",
-			true,true);
-			var_dump($usr);
+			$usr = sql_request("SELECT id, psw FROM utilisateurs 
+			WHERE pseudo = '".htmlspecialchars($_POST["pseudo"])."'" ,true,true);
 			
-			if(password_verify($_POST["mdp"], $usr[1])) 
+			if(password_verify($_POST["mdp"], $usr[1]))
 			{
 				$_SESSION["id"] = $usr[0];
 				$_SESSION["pseudo"] = $_POST["pseudo"];

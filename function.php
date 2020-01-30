@@ -18,6 +18,8 @@
 		$conn = mysqli_connect("localhost", "root", "","memory");
 		$query = mysqli_query($conn, $request);
 		
+		echo $request;
+		
 		if($isData)
 		{
 			if($isSingle) 
