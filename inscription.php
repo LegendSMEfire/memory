@@ -32,56 +32,56 @@
 				
 				<div id="inscription-profilPic">
 					<span>
-						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"required/>
 						<label for="profil1">
 							<img src="assets/profilPics/profil1.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil2" id="profil2" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil2" id="profil2" class="radio-picture" required/>
 						<label for="profil2">
 							<img src="assets/profilPics/profil2.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil3" id="profil3" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil3" id="profil3" class="radio-picture" required/>
 						<label for="profil3">
 							<img src="assets/profilPics/profil3.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil4" id="profil4" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil4" id="profil4" class="radio-picture" required/>
 						<label for="profil4">
 							<img src="assets/profilPics/profil4.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil5" id="profil5" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil5" id="profil5" class="radio-picture" required/>
 						<label for="profil5">
-							<img src="assets/profilPics/profil5.png" class="inscription-profil-image"/>
+							<img src="assets/profilPics/profil5.png" class="inscription-profil-image" required/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil6" id="profil6" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil6" id="profil6" class="radio-picture" required/>
 						<label for="profil6">
 							<img src="assets/profilPics/profil6.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil7" id="profil7" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil7" id="profil7" class="radio-picture" required/>
 						<label for="profil7">
 							<img src="assets/profilPics/profil7.png" class="inscription-profil-image"/>
 						</label>
 					</span>
 					
 					<span>
-						<input type="radio" name="profil" value="profil8" id="profil8" class="radio-picture"/>
+						<input type="radio" name="profil" value="profil8" id="profil8" class="radio-picture" required/>
 						<label for="profil8">
 							<img src="assets/profilPics/profil8.png" class="inscription-profil-image"/>
 						</label>
