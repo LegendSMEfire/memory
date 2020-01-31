@@ -15,9 +15,7 @@
 		</header>
 
 		<main>
-			<form action="memory.php" method="post">
-				<input type="submit" value="Jouer">
-			</form>
+			<?php if(isset($_SESSION["id"])) { include("memory.php"); }?>
 		</main>
 
 		<footer>

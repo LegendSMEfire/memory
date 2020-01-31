@@ -1,21 +1,21 @@
 <nav>
-
+	<a href="index.php" id="header-logo"><img src="assets/logo.png" /></a>
 <?php
 	session_start();
 	include("function.php");
 	
 	if(!isset($_SESSION["id"])){ ?>
 		
-		<a href="inscription.php">Inscription</a>
-		<a href="connexion.php">Connexion</a>
+		<a href="inscription.php" class="header-link">Inscription</a>
+		<a href="connexion.php" class="header-link">Connexion</a>
 	
 	<?php 
 	}
 	else { ?>
 	
-		<a href="memory.php">Memory</a>
-		<a href="profil.php">Profil</a>
-		<a href="index.php?deconnexion=true">Déconnexion</a>
+		<a href="index.php" class="header-link">Memory</a>
+		<a href="profil.php" class="header-link">Profil</a>
+		<a href="index.php?deconnexion=true" id="deco-btn" class="header-link">Déconnexion</a>
 	
 	<?php 
 	}

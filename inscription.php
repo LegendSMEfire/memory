@@ -14,9 +14,12 @@
 			<?php include("header.php");?>
 		</header>
 
-		<main>
+		<main class="inscription-form">
 		
-			<form action="" method="post">
+			<span class="inscription-title">Créez votre compte</span>
+			<span class="inscription-desc">Préparez vous pour le meilleur DLC de minecraft !</span>
+			
+			<form action="" method="post" >
 				
 				<label for="pseudo">Pseudo</label>
 				<input type="text" name="pseudo" required/>
@@ -27,7 +30,7 @@
 				<label for="mdpV">Vérifier mot de passe</label>
 				<input type="password" name="mdpV" required/>
 				
-				<div>
+				<div id="inscription-profilPic">
 					<span>
 						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"/>
 						<label for="profil1">
@@ -85,9 +88,14 @@
 					</span>
 				</div>
 				
-				<input type="submit" name="submitBtn" value="Connecter"/>
+				<input type="submit" name="submitBtn" value="Connecter" class="play-btn"/>
 			
+				<span id="term">
+					En soumettant ce formulaire, vous acceptez <span class="green">les termes et conditions</span>,
+					y compris notre <span class="green">politique de confidentialité</span> et le <span class="green">contrat de licence de l'utilisateur final de Minecraft</span>.
+				</span>
 			</form>
+			
 			
 		</main>
 

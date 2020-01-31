@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function startGame() {
 	if (isset($_POST["pairs"]) && is_numeric($_POST["pairs"])) {
 		$_SESSION["game"] = [];
@@ -79,38 +77,26 @@ if (count($_POST) > 0) {
 }
 
 ?>
+	
+<form method="post" class="columns cards">
+	<input type="hidden" name="action" value="pick">
+	<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
+		<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
+	<?php } ?>
+</form>
 
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="style.css">
-	<title>Memory</title>
-</head>
-<body>
-<main>
-	<form method="post" class="columns cards">
-		<input type="hidden" name="action" value="pick">
-		<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
-			<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
-		<?php } ?>
+<div class="columns">
+	<form method="post" id="play-form">
+		<input type="hidden" name="action" value="start">
+		<select name="pairs" id="difficulty">
+			<option value="" disabled selected>Sélectionnez un nombre de paires</option>
+			<option value="3">3</option>
+			<option value="6">6</option>
+			<option value="9">9</option>
+			<option value="12">12</option>
+		</select>
+		<input type="submit" value="Jouer" class="play-btn">
 	</form>
+</div>
 
-	<div class="columns">
-		<form method="post">
-			<input type="hidden" name="action" value="start">
-			<select name="pairs">
-	            <option value="" disabled selected>Sélectionnez un nombre de paires</option>
-				<option value="3">3</option>
-				<option value="6">6</option>
-				<option value="9">9</option>
-				<option value="12">12</option>
-			</select>
-			<input type="submit" value="Jouer">
-		</form>
-	</div>
-</main>
-</body>
-</html>
 

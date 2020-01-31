@@ -11,7 +11,10 @@
 			<?php include("header.php");?>
 		</header>
 
-		<main>
+		<main class="inscription-form" id="connexion-main">
+		
+			<span class="inscription-title">Connection</span>
+			<span class="inscription-desc">Grimpez en haut du leaderboard et gagnez les diamants !</span>
 		
 			<form action="" method="post">
 				
@@ -21,7 +24,7 @@
 				<label for="mdp">Mot de passe</label>
 				<input type="password" name="mdp" required/>
 				
-				<input type="submit" name="submitBtn" value="Connecter"/>
+				<input type="submit" name="submitBtn" value="Connecter" class="play-btn"/>
 			
 			</form>
 			
