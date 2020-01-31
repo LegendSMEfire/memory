@@ -88,7 +88,7 @@
 					</span>
 				</div>
 				
-				<input type="submit" name="submitBtn" value="Connecter" class="play-btn"/>
+				<input type="submit" name="submitBtn" value="S'inscrire" class="play-btn"/>
 			
 				<span id="term">
 					En soumettant ce formulaire, vous acceptez <span class="green">les termes et conditions</span>,
