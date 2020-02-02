@@ -1,7 +1,10 @@
 <nav>
 	<a href="index.php" id="header-logo"><img src="assets/logo.png" /></a>
 <?php
-	session_start();
+	if(!isset($_SESSION)) 
+	{
+		session_start();	
+	}
 	include("function.php");
 	
 	if(!isset($_SESSION["id"])){ ?>

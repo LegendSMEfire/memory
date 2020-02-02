@@ -13,6 +13,8 @@
   src: url("NotoSans-Light.ttf");
 }
 
+
+
 html, body {
 	padding: 0;
 	margin: 0;
@@ -39,7 +41,8 @@ header nav {
 	margin-bottom:10px;
 	color:white;
 	text-decoration:none;
-	font-family:notoLight;	
+	font-family:notoLight;
+	font-weight:bold;
 }
 
 .header-link:hover {
@@ -199,7 +202,7 @@ header nav {
 
 /*---------------------------------------- INDEX ----------------------------------------*/
 
-#play-form {
+.play-form {
 	margin:auto;
 	margin-top:20px;
 	display:flex;
@@ -237,8 +240,7 @@ header nav {
 
 select {
 	font-family: noto;
-    background-color: #34aa2f;
-    color: white;
+    color: black;
     text-align: center;
 	
 	border-top:2px solid #9ad597;
@@ -248,7 +250,20 @@ select {
 	border-left:2px solid #247721;
 }
 
-option:disabled{
-	color:white;
-}
+/* select:hover { */
+	/* background-color:#313131; */
+	
+	/* border-top:2px solid #5a5a5a; */
+	/* border-right:2px solid #5a5a5a; */
+	
+	/* border-bottom:2px solid #181818; */
+	/* border-left:2px solid #181818; */
+/* } */
 
+
+
+#memorySam{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-evenly;
+}

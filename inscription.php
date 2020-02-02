@@ -32,7 +32,7 @@
 				
 				<div id="inscription-profilPic">
 					<span>
-						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"required/>
+						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"required checked/>
 						<label for="profil1">
 							<img src="assets/profilPics/profil1.png" class="inscription-profil-image"/>
 						</label>

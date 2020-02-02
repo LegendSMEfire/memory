@@ -13,7 +13,7 @@
 		<header>
 			<?php 
 				include("header.php");
-				$usr = sql_request("SELECT * FROM utilisateurs WHERE id = ".$_SESSION["id"], true, true);
+				$usr = sql_request("SELECT * FROM utilisateurs WHERE id = {$_SESSION['id']}", true, true);
 			?>
 		</header>
 
@@ -68,7 +68,7 @@
 			$cur_file = pathinfo($_FILES["profilPic"]["name"]);
 			$image_path = "assets/profilPics/".$_SESSION["id"].".".$cur_file["extension"];
 			
-			foreach(scandir("assets/profilPics/") as $files)
+			foreach(scandir("assets/profilPics/") as $files)// file exists unlink cur profilPic
 			{
 				if(pathinfo($files, PATHINFO_FILENAME) == $_SESSION["id"])
 				{

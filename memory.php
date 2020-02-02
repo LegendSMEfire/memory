@@ -33,7 +33,7 @@ function pickCard() {
 				$_SESSION["matching"] = -1;
 			} else {
 				$disabled = true;
-				header("Refresh: 1.5; URL=memory.php");
+				header("Refresh: 1; URL=index.php");
 			}
 		}
 	}
@@ -77,26 +77,44 @@ if (count($_POST) > 0) {
 }
 
 ?>
-	
-<form method="post" class="columns cards">
-	<input type="hidden" name="action" value="pick">
-	<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
-		<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
-	<?php } ?>
-</form>
 
-<div class="columns">
-	<form method="post" id="play-form">
-		<input type="hidden" name="action" value="start">
-		<select name="pairs" id="difficulty">
-			<option value="" disabled selected>Sélectionnez un nombre de paires</option>
-			<option value="3">3</option>
-			<option value="6">6</option>
-			<option value="9">9</option>
-			<option value="12">12</option>
-		</select>
-		<input type="submit" value="Jouer" class="play-btn">
-	</form>
-</div>
+<!DOCTYPE html>
 
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+		<title>Memory</title>
+	</head>
 
+	<body>
+		<header>
+		</header>
+
+		<main>
+			<?php if(!isset($_SESSION["deck"])) { ?>
+				<form action="" method="post" class="play-form">
+					<select name="difficulty" class="difficulty">
+						<option value="" disabled selected>Choisissez votre difficulté</option>
+						<option value="3">3 paires</option>
+						<option value="6">6 paires</option>
+						<option value="9">9 paires</option>
+						<option value="12">12 paires</option>
+					</select>
+					<input type="submit" value="Jouer" name="submitBtn" class="play-btn"/>
+				</form>
+				
+				
+			<?php } else { ?>
+			<form method="post" class="columns cards">
+				<input type="hidden" name="action" value="pick">
+				<?php foreach ($_SESSION["game"] ?? [] as $id => $image) {  ?>
+					<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
+			<?php } }?>
+			</form>
+		</main>
+
+		<footer>
+		</footer>
+	</body>
+
+</html>

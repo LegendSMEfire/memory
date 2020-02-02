@@ -15,7 +15,33 @@
 		</header>
 
 		<main>
-			<?php if(isset($_SESSION["id"])) { include("memory.php"); }?>
+			<?php if(isset($_SESSION["id"])) 
+			{ 
+?>				<div class="columns">
+					<form method="post" class="play-form">
+						<input type="hidden" name="action" value="start">
+						<select name="pairs" class="difficulty">
+							<option value="" disabled selected>Sélectionnez un nombre de paires</option>
+							<option value="3">3</option>
+							<option value="6">6</option>
+							<option value="9">9</option>
+							<option value="12">12</option>
+						</select>
+						
+						<input type="submit" value="Jouer" class="play-btn">
+					</form>
+				</div>
+<?php			
+			
+			
+				
+				
+				include("memory.php"); 
+			}
+			
+			
+			
+			?>
 		</main>
 
 		<footer>
@@ -23,13 +49,3 @@
 	</body>
 
 </html>
-
-
-
-<?php
-
-
-
-
-
-?>
