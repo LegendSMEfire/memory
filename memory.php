@@ -80,41 +80,38 @@ if (count($_POST) > 0) {
 
 <!DOCTYPE html>
 
-<html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="stylesheet.css"/>
-		<title>Memory</title>
-	</head>
 
-	<body>
-		<header>
-		</header>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css">
+	<title>Memory</title>
+</head>
+<body>
+<main>
+	<form method="post" class="columns cards">
+		<input type="hidden" name="action" value="pick">
+		<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
+			<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
+		<?php } ?>
+	</form>
 
-		<main>
-			<?php if(!isset($_SESSION["deck"])) { ?>
-				<form action="" method="post" class="play-form">
-					<select name="difficulty" class="difficulty">
-						<option value="" disabled selected>Choisissez votre difficulté</option>
-						<option value="3">3 paires</option>
-						<option value="6">6 paires</option>
-						<option value="9">9 paires</option>
-						<option value="12">12 paires</option>
-					</select>
-					<input type="submit" value="Jouer" name="submitBtn" class="play-btn"/>
-				</form>
-				
-				
-			<?php } else { ?>
-			<form method="post" class="columns cards">
-				<input type="hidden" name="action" value="pick">
-				<?php foreach ($_SESSION["game"] ?? [] as $id => $image) {  ?>
-					<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
-			<?php } }?>
-			</form>
-		</main>
-
-		<footer>
-		</footer>
-	</body>
-
+	<div class="columns">
+		<form method="post">
+			<input type="hidden" name="action" value="start">
+			<select name="pairs">
+	            <option value="" disabled selected>Sélectionnez un nombre de paires</option>
+				<option value="3">3</option>
+				<option value="6">6</option>
+				<option value="9">9</option>
+				<option value="12">12</option>
+			</select>
+			<input type="submit" value="Jouer">
+		</form>
+	</div>
+</main>
+</body>
 </html>
+
