@@ -97,20 +97,22 @@ if (count($_POST) > 0) {
 			<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
 		<?php } ?>
 	</form>
-
-	<div class="columns">
-		<form method="post">
-			<input type="hidden" name="action" value="start">
-			<select name="pairs">
-	            <option value="" disabled selected>Sélectionnez un nombre de paires</option>
-				<option value="3">3</option>
-				<option value="6">6</option>
-				<option value="9">9</option>
-				<option value="12">12</option>
-			</select>
-			<input type="submit" value="Jouer">
-		</form>
-	</div>
+	
+	<?php if(!isset($_SESSION["game"])) { ?>
+		<div class="columns">
+			<form method="post">
+				<input type="hidden" name="action" value="start">
+				<select name="pairs">
+					<option value="" disabled selected>Sélectionnez un nombre de paires</option>
+					<option value="3">3</option>
+					<option value="6">6</option>
+					<option value="9">9</option>
+					<option value="12">12</option>
+				</select>
+				<input type="submit" value="Jouer">
+			</form>
+		</div>
+	<?php } ?>
 </main>
 </body>
 </html>

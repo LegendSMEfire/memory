@@ -250,20 +250,7 @@ select {
 	border-left:2px solid #247721;
 }
 
-/* select:hover { */
-	/* background-color:#313131; */
+.wall {
+	display:flexc;
 	
-	/* border-top:2px solid #5a5a5a; */
-	/* border-right:2px solid #5a5a5a; */
-	
-	/* border-bottom:2px solid #181818; */
-	/* border-left:2px solid #181818; */
-/* } */
-
-
-
-#memorySam{
-	display:flex;
-	flex-wrap:wrap;
-	justify-content:space-evenly;
 }

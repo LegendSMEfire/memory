@@ -15,7 +15,7 @@
 		</header>
 
 		<main>
-			<?php if(isset($_SESSION["id"])) 
+			<?php if(isset($_SESSION["id"]) && !isset($_SESSION["game"])) 
 			{ 
 ?>				<div class="columns">
 					<form method="post" class="play-form">
@@ -31,14 +31,13 @@
 						<input type="submit" value="Jouer" class="play-btn">
 					</form>
 				</div>
-<?php			
+<?php						
+			}
 			
-			
-				
+			if(isset($_SESSION["game"]) && isset($_SESSION["id"])){
 				
 				include("memory.php"); 
 			}
-			
 			
 			
 			?>

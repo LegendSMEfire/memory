@@ -17,6 +17,7 @@
 	else { ?>
 	
 		<a href="index.php" class="header-link">Memory</a>
+		<a href="wof.php" class="header-link">Wall Of Fame</a>
 		<a href="profil.php" class="header-link">Profil</a>
 		<a href="index.php?deconnexion=true" id="deco-btn" class="header-link">Déconnexion</a>
 	
