@@ -19,17 +19,24 @@ if(count($_POST) > 0) {
 		if (!$user) {
 			if ($_POST["password"] == $_POST["passwordVerify"]) {
 				$hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
-				$avatar = "assets/avatars/default/{$_POST['avatar']}.png";
-				$stmt = $db->prepare("INSERT INTO users(`login`, `password`, `avatar`)
-				VALUES (?, ?, ?)");
-				$stmt->execute([
-					$_POST["login"],
-					$hash,
-					$avatar
-				]);
+				$avatar = "assets/avatars/default/{$_POST['avatar']}";
+				$path = realpath($avatar);
 
-				header("Location: connexion.php");
-				die;
+				// On regarde si l'utilisateur essaie de s'échapper de notre dossier
+				if ($path && !preg_match("/assets(\\|\/)avatars(\\|\/)default(\\|\/)/i", $path)) {
+					$stmt = $db->prepare("INSERT INTO users(`login`, `password`, `avatar`)
+					VALUES (?, ?, ?)");
+					$stmt->execute([
+						$_POST["login"],
+						$hash,
+						$avatar
+					]);
+
+					header("Location: connexion.php");
+					die;
+				} else {
+					array_push($messages, "Qu'est-ce que vous essayez de faire ?");
+				}
 			} else {
 				array_push($messages, "Vous n'avez pas confirmé votre mot de passe correctement");
 			}
@@ -80,7 +87,7 @@ if(count($_POST) > 0) {
 					array_splice($avatars, 0, 2);
 					foreach ($avatars as $k => $v) { ?>
 						<span>
-							<input type="radio" id="avatar-<?= $k ?>" name="avatar" value="<?= $k + 1 ?>" class="radio-picture" required/>
+							<input type="radio" id="avatar-<?= $k ?>" name="avatar" value="<?= $v ?>" class="radio-picture" required/>
 							<label for="avatar-<?= $k ?>">
 								<img src="assets/avatars/default/<?= $v ?>" class="inscription-avatar-image"/>
 							</label>

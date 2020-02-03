@@ -36,15 +36,14 @@ function startGame() {
 		shuffle($game["cards"]);
 	}
 }
-$disabled = false;
 function pickCard() {
-	global $disabled;
 	$game = &$_SESSION["game"];
 
 	if (isset($_POST["pickedCard"]) && is_numeric($_POST["pickedCard"]) && isset($game["cards"][$_POST["pickedCard"]])) {
 		$game["lastTry"] = time();
-		if ($game["matching"] < 0) {
+		if ($game["matching"] < 0 || isset($game["resetMatching"])) {
 			$game["matching"] = $_POST["pickedCard"];
+			unset($game["resetMatching"]);
 		} else {
 			$game["attempts"]++;
 
@@ -56,8 +55,7 @@ function pickCard() {
 				$pickedCard["flipped"] = true;
 				$game["matching"] = -1;
 			} else {
-				$disabled = true;
-				header("Refresh: 1; URL=memory.php");
+				$game["resetMatching"] = true;
 			}
 		}
 	}
@@ -65,6 +63,7 @@ function pickCard() {
 function endGame() {
 	unset($_SESSION["game"]);
 }
+$disabled = false;
 function finishGame() {
 	global $disabled;
 	global $db;
@@ -85,7 +84,7 @@ function finishGame() {
 	}
 
 	$game["finished"] = true;
-	$disabled = false;
+	$disabled = true;
 	header("Refresh: 1.5; URL=index.php?win=1");
 }
 

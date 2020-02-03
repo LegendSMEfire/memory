@@ -29,7 +29,8 @@ if (isset($_SESSION["game"]) && !$_GET["win"]) {
 			<?php if (isset($_SESSION["user"])) { ?>
 				<?php if (isset($_GET["win"])) {
 					unset($_SESSION["game"]); ?>
-					<p style="color: green;">Vous avez gagné ! Votre partie a été enregistrée.</p>
+					<span class="title" style="color: green;">Vous avez gagné !</span>
+					<p class="subtitle">Votre partie a été enregistrée.</p>
 				<?php } ?>
 				<div class="columns">
 					<form action="memory.php" method="post" class="play-form">
