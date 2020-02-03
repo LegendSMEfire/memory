@@ -1,3 +1,34 @@
+
+<?php
+
+session_start();
+
+if (isset($_SESSION["user"])) {
+	header("Location: index.php");
+	die;
+}
+
+include "includes/shortcuts.php";
+
+$messages = [];
+
+if (count($_POST) > 0 && !in_array("", $_POST)) {
+	$stmt = $db->prepare("SELECT * FROM users WHERE login = ?");
+	$stmt->execute([$_POST["login"]]);
+	$user = $stmt->fetch();
+
+	if ($user && password_verify($_POST["password"], $user["password"])) {
+		$_SESSION["user"] = $user;
+
+		header("Location: index.php");
+		die;
+	} else {
+		array_push($messages, "Mot de passe incorrect");
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -8,58 +39,28 @@
 
 	<body>
 		<header>
-			<?php include("header.php");?>
+			<?php include "includes/header.php"; ?>
 		</header>
 
-		<main class="inscription-form" id="connexion-main">
-		
-			<span class="inscription-title">Connection</span>
-			<span class="inscription-desc">Grimpez en haut du leaderboard et gagnez les diamants !</span>
-		
-			<form action="" method="post">
-				
-				<label for="pseudo">Pseudo</label>
-				<input type="text" name="pseudo" required/>
-				
-				<label for="mdp">Mot de passe</label>
-				<input type="password" name="mdp" required/>
-				
-				<input type="submit" name="submitBtn" value="Connecter" class="play-btn"/>
-			
+		<main class="container">
+			<span class="title">Connexion</span>
+			<span class="subtitle">Grimpez en haut du leaderboard et gagnez les diamants !</span>
+			<?php foreach ($messages as $message) { ?>
+				<span class="subtitle"><?= $message ?></span>
+			<?php } ?>
+
+			<form id="narrow-form" method="post">
+				<label for="login">Login</label>
+				<input type="text" name="login" maxlength="50" required value="<?= $_POST["login"] ?? "" ?>"/>
+
+				<label for="password">Mot de passe</label>
+				<input type="password" name="password" maxlength="255" required/>
+
+				<input type="submit" value="Envoyer" class="play-btn"/>
 			</form>
-			
 		</main>
 
 		<footer>
 		</footer>
 	</body>
-
 </html>
-
-
-
-<?php
-
-	if(isset($_POST["submitBtn"])) {
-		if(required($_POST))
-		{
-			$usr = sql_request("SELECT id, psw FROM utilisateurs 
-			WHERE pseudo = '".htmlspecialchars($_POST["pseudo"])."'" ,true,true);
-			
-			if(password_verify($_POST["mdp"], $usr[1]))
-			{
-				$_SESSION["id"] = $usr[0];
-				$_SESSION["pseudo"] = $_POST["pseudo"];
-				
-				header("location:index.php");
-			}
-			else
-			{
-				echo "nope";
-			}
-		}
-	}
-
-
-
-?>

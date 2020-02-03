@@ -30,41 +30,31 @@ USE `memory`;
 -- Table structure for table `parties`
 --
 
-DROP TABLE IF EXISTS `parties`;
-CREATE TABLE IF NOT EXISTS `parties` (
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE IF NOT EXISTS `games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_utilisateur` int(11) NOT NULL,
-  `temps` time NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `time` time NOT NULL,
   `score` int(11) NOT NULL,
-  `difficulte` int(11) NOT NULL,
+  `attempts` int(11) NOT NULL,
+  `difficulty` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `utilisateurs`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `utilisateurs`;
-CREATE TABLE IF NOT EXISTS `utilisateurs` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pseudo` varchar(50) NOT NULL,
-  `psw` varchar(250) NOT NULL,
-  `profilPic` varchar(255) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `utilisateurs`
---
-
-INSERT INTO `utilisateurs` (`id`, `pseudo`, `psw`, `profilPic`) VALUES
-(1, 'admin', '$2y$10$LWoPbgF9ZtAS8KDU6IInCuhaX.wTvPmyGeEhoiNobSLCBBnI37V06', 'assets/profilPics/1.png'),
-(2, 'test', '$2y$10$6pO.i0pb3Q0WCByRxo9OoODu6TFpuhfWrEQ0AWcruBpe4XjBClZAW', 'assets/profilPics/profil8.png'),
-(3, 'amar', '$2y$10$pJntiEYxtMj0p38M4lEDHO/nQ6VIvCZwjRUHnGHkl0dLcP1rY3oO6', 'assets/profilPics/profil3.png'),
-(4, 'testeur', '$2y$10$nhdGgaIva1q/LmwPsni44uQEi71/ETjq5K/lsnxeo5bLUv9TGsUpi', 'assets/profilPics/profil1.png');
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

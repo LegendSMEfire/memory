@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION["user"])) {
+	header("Location: index.php");
+	die;
+}
+
 function startGame() {
 	if (isset($_POST["pairs"]) && is_numeric($_POST["pairs"])) {
 		$_SESSION["game"] = [];
@@ -16,7 +23,6 @@ function startGame() {
 		shuffle($_SESSION["game"]);
 	}
 }
-
 $disabled = false;
 function pickCard() {
 	global $disabled;
@@ -33,24 +39,27 @@ function pickCard() {
 				$_SESSION["matching"] = -1;
 			} else {
 				$disabled = true;
-				header("Refresh: 1; URL=index.php");
+				header("Refresh: 1; URL=memory.php");
 			}
 		}
 	}
 }
+function endGame() {
+	unset($_SESSION["game"]);
+	unset($_SESSION["matching"]);
+}
 
 function getCardFrontState($id) {
 	if ($_SESSION["matching"] == $id) {
-		return "front_selected";
+		return "front-selected";
 	} else {
 		if (isset($_POST["pickedCard"]) && $_POST["pickedCard"] == $id && $_SESSION["matching"] != -1) {
-			return "front_wrong";
+			return "front-wrong";
 		} else {
 			return "front";
 		}
 	}
 }
-
 function getCardStyle($id) {
 	if (isset($_SESSION["game"]) && isset($_SESSION["game"][$id])) {
 		if ((isset($_POST["pickedCard"]) && $_POST["pickedCard"] == $id) ||
@@ -71,47 +80,47 @@ if (count($_POST) > 0) {
 		case "pick":
 			pickCard();
 			break;
+		case "end":
+			endGame();
+			break;
 	}
 } else {
 	$_SESSION["matching"] = -1;
+}
+
+if (!isset($_SESSION["game"])) {
+	header("Location: index.php");
+	die;
 }
 
 ?>
 
 <!DOCTYPE html>
 
-
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="style.css">
-	<title>Memory</title>
-</head>
-<body>
-<main>
-	<form method="post" class="columns cards">
-		<input type="hidden" name="action" value="pick">
-		<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
-			<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
-		<?php } ?>
-	</form>
-
-	<div class="columns">
-		<form method="post">
-			<input type="hidden" name="action" value="start">
-			<select name="pairs">
-	            <option value="" disabled selected>Sélectionnez un nombre de paires</option>
-				<option value="3">3</option>
-				<option value="6">6</option>
-				<option value="9">9</option>
-				<option value="12">12</option>
-			</select>
-			<input type="submit" value="Jouer">
-		</form>
-	</div>
-</main>
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="style.css">
+		<title>Memory</title>
+	</head>
+	<body>
+		<header>
+			<?php include "includes/header.php"; ?>
+		</header>
+		<main class="container">
+			<form method="post" class="columns cards">
+				<input type="hidden" name="action" value="pick">
+				<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
+					<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
+				<?php } ?>
+			</form>
+			<form method="post" class="play-form">
+				<input type="hidden" name="action" value="end">
+				<input type="submit" value="Abandonner" class="play-btn"/>
+			</form>
+		</main>
+	</body>
 </html>
 

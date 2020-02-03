@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["game"])) {
+	header("Location: memory.php");
+	die;
+}
+
+?>
+
 <!DOCTYPE html>
 
 <html>
@@ -11,14 +22,13 @@
 
 	<body>
 		<header>
-			<?php include("header.php");?>
+			<?php include "includes/header.php"; ?>
 		</header>
 
-		<main>
-			<?php if(isset($_SESSION["id"])) 
-			{ 
-?>				<div class="columns">
-					<form method="post" class="play-form">
+		<main class="container">
+			<?php if(isset($_SESSION["user"])) { ?>
+				<div class="columns">
+					<form action="memory.php" method="post" class="play-form">
 						<input type="hidden" name="action" value="start">
 						<select name="pairs" class="difficulty">
 							<option value="" disabled selected>Sélectionnez un nombre de paires</option>
@@ -27,21 +37,15 @@
 							<option value="9">9</option>
 							<option value="12">12</option>
 						</select>
-						
+
 						<input type="submit" value="Jouer" class="play-btn">
 					</form>
 				</div>
-<?php			
-			
-			
-				
-				
-				include("memory.php"); 
-			}
-			
-			
-			
-			?>
+			<?php } else { ?>
+				<div class="columns">
+					<p>Il faut se connecter pour jouer !</p>
+				</div>
+			<?php } ?>
 		</main>
 
 		<footer>

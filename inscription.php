@@ -1,6 +1,49 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["user"])) {
+	header("Location: index.php");
+	die;
+}
+
+include "includes/shortcuts.php";
+
+$messages = [];
+
+if(count($_POST) > 0) {
+	if(!in_array("", $_POST)) {
+		$stmt = $db->prepare("SELECT * FROM users WHERE login = ?");
+		$stmt->execute([$_POST["login"]]);
+		$user = $stmt->fetch();
+		if (!$user) {
+			if ($_POST["password"] == $_POST["passwordVerify"]) {
+				$hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
+				$avatar = "assets/avatars/default/{$_POST['avatar']}.png";
+				$stmt = $db->prepare("INSERT INTO users(`login`, `password`, `avatar`)
+				VALUES (?, ?, ?)");
+				$stmt->execute([
+					$_POST["login"],
+					$hash,
+					$avatar
+				]);
+
+				header("Location: connexion.php");
+				die;
+			} else {
+				array_push($messages, "Vous n'avez pas confirmé votre mot de passe correctement");
+			}
+		} else {
+			array_push($messages, "Il y a déjà un utilisateur avec ce login !");
+		}
+	}
+}
+
+?>
+
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<meta charset="UTF-8">
@@ -11,118 +54,42 @@
 
 	<body>
 		<header>
-			<?php include("header.php");?>
+			<?php include "includes/header.php"; ?>
 		</header>
 
-		<main class="inscription-form">
-		
-			<span class="inscription-title">Créez votre compte</span>
-			<span class="inscription-desc">Préparez vous pour le meilleur DLC de minecraft !</span>
-			
-			<form action="" method="post" >
-				
-				<label for="pseudo">Pseudo</label>
-				<input type="text" name="pseudo" required/>
-				
-				<label for="mdp">Mot de passe</label>
-				<input type="password" name="mdp" required/>
-				
-				<label for="mdpV">Vérifier mot de passe</label>
-				<input type="password" name="mdpV" required/>
-				
-				<div id="inscription-profilPic">
-					<span>
-						<input type="radio" name="profil" value="profil1" id="profil1" class="radio-picture"required checked/>
-						<label for="profil1">
-							<img src="assets/profilPics/profil1.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil2" id="profil2" class="radio-picture" required/>
-						<label for="profil2">
-							<img src="assets/profilPics/profil2.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil3" id="profil3" class="radio-picture" required/>
-						<label for="profil3">
-							<img src="assets/profilPics/profil3.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil4" id="profil4" class="radio-picture" required/>
-						<label for="profil4">
-							<img src="assets/profilPics/profil4.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil5" id="profil5" class="radio-picture" required/>
-						<label for="profil5">
-							<img src="assets/profilPics/profil5.png" class="inscription-profil-image" required/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil6" id="profil6" class="radio-picture" required/>
-						<label for="profil6">
-							<img src="assets/profilPics/profil6.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil7" id="profil7" class="radio-picture" required/>
-						<label for="profil7">
-							<img src="assets/profilPics/profil7.png" class="inscription-profil-image"/>
-						</label>
-					</span>
-					
-					<span>
-						<input type="radio" name="profil" value="profil8" id="profil8" class="radio-picture" required/>
-						<label for="profil8">
-							<img src="assets/profilPics/profil8.png" class="inscription-profil-image"/>
-						</label>
-					</span>
+		<main class="container">
+			<span class="title">Créez votre compte</span>
+			<span class="subtitle">Préparez vous pour le meilleur DLC de Minecraft !</span>
+			<?php foreach ($messages as $message) { ?>
+				<span class="subtitle"><?= $message ?></span>
+			<?php } ?>
+
+			<form id="narrow-form" method="post">
+				<label for="login">Login</label>
+				<input type="text" name="login" required value="<?= $_POST['login'] ?>"/>
+
+				<label for="password">Mot de passe</label>
+				<input type="password" name="password" required/>
+
+				<label for="passwordVerify">Mot de passe (confirmation)</label>
+				<input type="password" name="passwordVerify" required/>
+
+				<div id="inscription-avatar">
+					<?php
+					$avatars = scandir("./assets/avatars/default");
+					array_splice($avatars, 0, 2);
+					foreach ($avatars as $k => $v) { ?>
+						<span>
+							<input type="radio" id="avatar-<?= $k ?>" name="avatar" value="<?= $k + 1 ?>" class="radio-picture" required/>
+							<label for="avatar-<?= $k ?>">
+								<img src="assets/avatars/default/<?= $v ?>" class="inscription-avatar-image"/>
+							</label>
+						</span>
+					<?php } ?>
 				</div>
-				
-				<input type="submit" name="submitBtn" value="S'inscrire" class="play-btn"/>
-			
-				<span id="term">
-					En soumettant ce formulaire, vous acceptez <span class="green">les termes et conditions</span>,
-					y compris notre <span class="green">politique de confidentialité</span> et le <span class="green">contrat de licence de l'utilisateur final de Minecraft</span>.
-				</span>
+
+				<input type="submit" value="S'inscrire" class="play-btn"/>
 			</form>
-			
-			
 		</main>
-
-		<footer>
-		</footer>
 	</body>
-
 </html>
-
-
-<?php
-
-	if(isset($_POST["submitBtn"]))
-	{
-		if(required($_POST))
-		{
-			if(empty(sql_request("SELECT pseudo FROM utilisateurs WHERE pseudo = '".htmlspecialchars($_POST["pseudo"])."'", true)))
-			{
-				if($_POST["mdp"] == $_POST["mdpV"])
-				{
-					$psw = password_hash(htmlspecialchars($_POST["mdp"]), PASSWORD_BCRYPT);
-					sql_request("INSERT INTO utilisateurs(`id`,`pseudo`,`psw`,`profilPic`)
-					VALUES (NULL, '".$_POST["pseudo"]."', '".$psw."', 'assets/profilPics/".$_POST["profil"].".png')");
-					header("location:connexion.php");
-				}
-			}
-		}
-	}
-	
-?>
