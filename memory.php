@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function startGame() {
 	if (isset($_POST["pairs"]) && is_numeric($_POST["pairs"])) {
 		$_SESSION["game"] = [];
@@ -35,7 +33,7 @@ function pickCard() {
 				$_SESSION["matching"] = -1;
 			} else {
 				$disabled = true;
-				header("Refresh: 1.5; URL=memory.php");
+				header("Refresh: 1; URL=index.php");
 			}
 		}
 	}
@@ -79,6 +77,9 @@ if (count($_POST) > 0) {
 }
 
 ?>
+
+<!DOCTYPE html>
+
 
 <html lang="en">
 <head>

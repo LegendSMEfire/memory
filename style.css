@@ -2,26 +2,81 @@
 * {
 	box-sizing: border-box;
 }
+
+@font-face {
+  font-family: noto;
+  src: url("NotoSans.ttf");
+}
+
+@font-face {
+  font-family: notoLight;
+  src: url("NotoSans-Light.ttf");
+}
+
+
+
 html, body {
 	padding: 0;
 	margin: 0;
 	font-family: "Roboto";
+	
+	background-image:url(assets/bg-wool.png);
+	background-repeat:repeat;
 }
+
+
+/*---------------------------------------- HEADER ----------------------------------------*/
+
+header nav {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	height:100px;
+	background-image:url(assets/bg-wool.png);
+	font-size:1.4em;
+}
+
+.header-link {
+	margin-left:20px;
+	margin-bottom:10px;
+	color:white;
+	text-decoration:none;
+	font-family:notoLight;
+	font-weight:bold;
+}
+
+.header-link:hover {
+	color:#34aa2f;
+}
+
+#header-logo img{
+	height:70px;
+}
+
+#deco-btn {
+	
+}
+
+/*---------------------------------------- MEMORY ----------------------------------------*/
+
 .columns {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
+
 .column {
     display: flex;
     flex-direction: column;
     flex: 1 0 0;
     margin: 0.5em;
 }
+
 .cards {
 	flex-wrap: wrap;
 }
+
 .card {
 	width: 150px;
 	height: 240px;
@@ -33,4 +88,182 @@ html, body {
 	background-clip: border-box;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+
+/*---------------------------------------- INSCRIPTION ----------------------------------------*/
+
+.inscription-form {
+	width:100vw;
+	height:60vh;
+	background-color:#f1edec;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+
+.inscription-form form {
+	width:40vw;
+	height:100%;
+	
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-start;
+	margin:auto;
+}
+
+.inscription-form form input{
+	height:30px;
+	font-size:1.3em;
+}
+
+.inscription-form form label{
+	margin-top:10px;
+	font-size:1.2em;
+}
+
+.inscription-form form input[type="submit"] {
+	height:70px;
+}
+
+.inscription-title {
+	font-size:2em;
+	font-family:noto;
+}
+
+.inscription-desc {
+	font-size:1.1em;
+	font-family:notoLight;
+}
+
+#term {
+	color:grey;
+	font-size:1.1em;
+	font-family:notoLight;
+	text-align:justify;
+}
+
+.green {
+	cursor:pointer;
+	text-decoration:underline;
+	color:#34aa2f;
+}
+
+#inscription-profilPic {
+	display:flex;
+	justify-content:space-between;
+}
+
+.radio-picture {
+	display:none;
+}
+
+.radio-picture:checked~label>img {
+	background-image:url(assets/back.png);
+	background-size:50px 50px;
+	background-repeat:no-repeat;
+}
+
+.inscription-profil-image {
+	width:50px;
+	cursor:pointer;
+	transition:transform 0.2s ease;
+	margin:10px;
+	padding:10px;
+	/* border:2px solid grey; */
+}
+
+.inscription-profil-image:hover {
+	transform:scale(1.1);
+} 
+
+/*---------------------------------------- CONNEXION ----------------------------------------*/
+
+#profil-image {
+	height:50px;
+}
+
+#profilPic-container {
+	width:60px;
+	height:60px;
+	
+	background-image:url(assets/back.png);
+	background-repeat:no-repeat;
+	background-size:60px 60px;
+	
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+#connexion-main {
+	height:30vh;
+}
+
+
+/*---------------------------------------- INDEX ----------------------------------------*/
+
+.play-form {
+	margin:auto;
+	margin-top:20px;
+	display:flex;
+	flex-direction:column;
+}
+
+.play-btn{
+	font-size:1.5em;
+	padding:10px 20px 10px 20px ;
+	background-color:#34aa2f;
+	border-top:4px solid #9ad597;
+	border-right:4px solid #9ad597;
+	
+	border-bottom:4px solid #247721;
+	border-left:4px solid #247721;
+	
+	cursor:pointer;
+	transition:all 0.2s ease;
+	
+	font-family:noto;
+	color:white;
+	
+	margin-top:10px;
+}
+
+.play-btn:hover {
+	background-color:#313131;
+	
+	border-top:4px solid #5a5a5a;
+	border-right:4px solid #5a5a5a;
+	
+	border-bottom:4px solid #181818;
+	border-left:4px solid #181818;
+}
+
+select {
+	font-family: noto;
+    color: black;
+    text-align: center;
+	
+	border-top:2px solid #9ad597;
+	border-right:2px solid #9ad597;
+	
+	border-bottom:2px solid #247721;
+	border-left:2px solid #247721;
+}
+
+/* select:hover { */
+	/* background-color:#313131; */
+	
+	/* border-top:2px solid #5a5a5a; */
+	/* border-right:2px solid #5a5a5a; */
+	
+	/* border-bottom:2px solid #181818; */
+	/* border-left:2px solid #181818; */
+/* } */
+
+
+
+#memorySam{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:space-evenly;
 }
