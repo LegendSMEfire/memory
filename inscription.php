@@ -66,7 +66,7 @@ if(count($_POST) > 0) {
 
 			<form id="narrow-form" method="post">
 				<label for="login">Login</label>
-				<input type="text" name="login" required value="<?= $_POST['login'] ?>"/>
+				<input type="text" name="login" required value="<?= $_POST['login'] ?? "" ?>"/>
 
 				<label for="password">Mot de passe</label>
 				<input type="password" name="password" required/>

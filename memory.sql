@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `games` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) NOT NULL,
   `time` time NOT NULL,
-  `score` int(11) NOT NULL,
   `attempts` int(11) NOT NULL,
   `difficulty` int(11) NOT NULL,
   PRIMARY KEY (`id`)

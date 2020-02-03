@@ -2,7 +2,7 @@
 
 session_start();
 
-if (isset($_SESSION["game"])) {
+if (isset($_SESSION["game"]) && !$_GET["win"]) {
 	header("Location: memory.php");
 	die;
 }
@@ -26,16 +26,20 @@ if (isset($_SESSION["game"])) {
 		</header>
 
 		<main class="container">
-			<?php if(isset($_SESSION["user"])) { ?>
+			<?php if (isset($_SESSION["user"])) { ?>
+				<?php if (isset($_GET["win"])) {
+					unset($_SESSION["game"]); ?>
+					<p style="color: green;">Vous avez gagné ! Votre partie a été enregistrée.</p>
+				<?php } ?>
 				<div class="columns">
 					<form action="memory.php" method="post" class="play-form">
 						<input type="hidden" name="action" value="start">
-						<select name="pairs" class="difficulty">
+						<select name="difficulty" class="difficulty">
 							<option value="" disabled selected>Sélectionnez un nombre de paires</option>
-							<option value="3">3</option>
-							<option value="6">6</option>
-							<option value="9">9</option>
-							<option value="12">12</option>
+							<option value="1">3</option>
+							<option value="2">6</option>
+							<option value="3">9</option>
+							<option value="4">12</option>
 						</select>
 
 						<input type="submit" value="Jouer" class="play-btn">
@@ -43,7 +47,7 @@ if (isset($_SESSION["game"])) {
 				</div>
 			<?php } else { ?>
 				<div class="columns">
-					<p>Il faut se connecter pour jouer !</p>
+					<p>Veuillez vous connecter pour jouer !</p>
 				</div>
 			<?php } ?>
 		</main>

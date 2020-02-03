@@ -7,36 +7,54 @@ if (!isset($_SESSION["user"])) {
 	die;
 }
 
+include "includes/shortcuts.php";
+
+$user = &$_SESSION["user"];
+
 function startGame() {
-	if (isset($_POST["pairs"]) && is_numeric($_POST["pairs"])) {
-		$_SESSION["game"] = [];
-		$_SESSION["matching"] = -1;
+	if (isset($_POST["difficulty"]) && is_numeric($_POST["difficulty"])) {
+		$_SESSION["game"] = [
+			"cards" => [],
+			"startTime" => microtime(true),
+			"lastTry" => time(),
+			"matching" => -1,
+			"attempts" => 0,
+			"difficulty" => $_POST["difficulty"]
+		];
+		$game = &$_SESSION["game"];
+
 		$cards = scandir("./assets/cards");
 		array_splice($cards, 0, 2);
-		for ($i = 0; $i < $_POST["pairs"]; $i++) {
+
+		for ($i = 0; $i < $_POST["difficulty"] * 3; $i++) {
 			$randKey = array_rand($cards);
 			$randVal = $cards[$randKey];
 			$card = [ "image" => $randVal, "flipped" => false ];
-			array_push($_SESSION["game"], $card, $card);
+			array_push($game["cards"], $card, $card);
 			array_splice($cards, $randKey, 1);
 		}
-		shuffle($_SESSION["game"]);
+		shuffle($game["cards"]);
 	}
 }
 $disabled = false;
 function pickCard() {
 	global $disabled;
+	$game = &$_SESSION["game"];
 
-	if (isset($_POST["pickedCard"]) && is_numeric($_POST["pickedCard"]) && isset($_SESSION["game"][$_POST["pickedCard"]])) {
-		if ($_SESSION["matching"] < 0) {
-			$_SESSION["matching"] = $_POST["pickedCard"];
+	if (isset($_POST["pickedCard"]) && is_numeric($_POST["pickedCard"]) && isset($game["cards"][$_POST["pickedCard"]])) {
+		$game["lastTry"] = time();
+		if ($game["matching"] < 0) {
+			$game["matching"] = $_POST["pickedCard"];
 		} else {
-			$matchingCard = &$_SESSION["game"][$_SESSION["matching"]];
-			$pickedCard = &$_SESSION["game"][$_POST["pickedCard"]];
-			if ($matchingCard["image"] == $pickedCard["image"] && $_SESSION["matching"] != $_POST["pickedCard"]) {
+			$game["attempts"]++;
+
+			$matchingCard = &$game["cards"][$game["matching"]];
+			$pickedCard = &$game["cards"][$_POST["pickedCard"]];
+
+			if ($matchingCard["image"] == $pickedCard["image"] && $game["matching"] != $_POST["pickedCard"]) {
 				$matchingCard["flipped"] = true;
 				$pickedCard["flipped"] = true;
-				$_SESSION["matching"] = -1;
+				$game["matching"] = -1;
 			} else {
 				$disabled = true;
 				header("Refresh: 1; URL=memory.php");
@@ -46,14 +64,37 @@ function pickCard() {
 }
 function endGame() {
 	unset($_SESSION["game"]);
-	unset($_SESSION["matching"]);
+}
+function finishGame() {
+	global $disabled;
+	global $db;
+	global $user;
+	$game = &$_SESSION["game"];
+
+	if (!isset($game["finished"])) {
+		$time = microtime(true) - $game["startTime"];
+
+		$stmt = $db->prepare("INSERT INTO games(`id_user`, `time`, `attempts`, `difficulty`)
+		VALUES (?, ?, ?, ?)");
+		$stmt->execute([
+			$user["id"],
+			$time,
+			$game["attempts"],
+			$game["difficulty"]
+		]);
+	}
+
+	$game["finished"] = true;
+	$disabled = false;
+	header("Refresh: 1.5; URL=index.php?win=1");
 }
 
 function getCardFrontState($id) {
-	if ($_SESSION["matching"] == $id) {
+	$game = &$_SESSION["game"];
+	if ($game["matching"] == $id) {
 		return "front-selected";
 	} else {
-		if (isset($_POST["pickedCard"]) && $_POST["pickedCard"] == $id && $_SESSION["matching"] != -1) {
+		if (isset($_POST["pickedCard"]) && $_POST["pickedCard"] == $id && $game["matching"] != -1) {
 			return "front-wrong";
 		} else {
 			return "front";
@@ -61,11 +102,13 @@ function getCardFrontState($id) {
 	}
 }
 function getCardStyle($id) {
-	if (isset($_SESSION["game"]) && isset($_SESSION["game"][$id])) {
+	$game = &$_SESSION["game"];
+
+	if (isset($game) && isset($game["cards"][$id])) {
 		if ((isset($_POST["pickedCard"]) && $_POST["pickedCard"] == $id) ||
-			$_SESSION["matching"] == $id ||
-			$_SESSION["game"][$id]["flipped"]) {
-			return "url(assets/cards/{$_SESSION['game'][$id]['image']}), url(assets/" . getCardFrontState($id) . ".png)";
+			$game["matching"] == $id ||
+			$game["cards"][$id]["flipped"]) {
+			return "url(assets/cards/{$game['cards'][$id]['image']}), url(assets/" . getCardFrontState($id) . ".png)";
 		} else {
 			return "linear-gradient(0, transparent, transparent), url(assets/back.png)";
 		}
@@ -85,12 +128,28 @@ if (count($_POST) > 0) {
 			break;
 	}
 } else {
-	$_SESSION["matching"] = -1;
+	$_SESSION["game"]["matching"] = -1;
+}
+
+$remainingTime = time() - ($_SESSION["game"]["lastTry"] ?? time());
+if ($remainingTime > 60 * 10) {
+	endGame();
 }
 
 if (!isset($_SESSION["game"])) {
-	header("Location: index.php");
+	header("Locationr: index.php");
 	die;
+} elseif (count($_SESSION["game"]["cards"] ?? []) > 0) {
+	$done = true;
+	foreach ($_SESSION["game"]["cards"] as $card) {
+		if (!$card["flipped"]) {
+			$done = false;
+			break;
+		}
+	}
+	if ($done) {
+		finishGame();
+	}
 }
 
 ?>
@@ -112,7 +171,7 @@ if (!isset($_SESSION["game"])) {
 		<main class="container">
 			<form method="post" class="columns cards">
 				<input type="hidden" name="action" value="pick">
-				<?php foreach ($_SESSION["game"] ?? [] as $id => $image) { ?>
+				<?php foreach ($_SESSION["game"]["cards"] ?? [] as $id => $image) { ?>
 					<input type="submit" name="pickedCard" value="<?= $id ?>" class="card" style="background-image: <?= getCardStyle($id) ?>;" <?= $disabled ? "disabled" : "" ?>>
 				<?php } ?>
 			</form>
