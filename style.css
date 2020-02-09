@@ -222,12 +222,76 @@ select {
 	padding: 10px;
 }
 
-/* select:hover { */
-	/* background-color:#313131; */
 
-	/* border-top:2px solid #5a5a5a; */
-	/* border-right:2px solid #5a5a5a; */
+/*---------------------------------------- WOF ----------------------------------------*/
 
-	/* border-bottom:2px solid #181818; */
-	/* border-left:2px solid #181818; */
-/* } */
+
+.leaderboards{
+	width:500px;
+	text-align:center;
+	margin:auto;
+	border:0px;
+	border-spacing:10px;
+}
+
+.leaderboards a
+{
+	color:white;
+	text-decoration:none;
+}
+
+.leaderboards th {
+	font-size:1.3em;
+	margin-bottom:15px;
+	border:0px;
+}
+
+.scored td{
+	background-image:url(assets/wof/back.png);
+	background-size:115px 60px;
+	min-width:115px;
+	min-height:60px;
+	color:black;
+	font-weight:bold;
+}
+
+.pseudo-wof {
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+}
+
+.wof-image {
+	width:25px;
+	align-self:center;
+}
+
+#first::after
+{
+	content:"";
+	background-image:url(assets/wof/first.png);
+	background-size:cover;
+	width:50px;
+	height:50px;
+	position:absolute;
+}
+
+#second::after
+{
+	content:"";
+	background-image:url(assets/wof/second.png);
+	background-size:cover;
+	width:50px;
+	height:50px;
+	position:absolute;
+}
+
+#third::after
+{
+	content:"";
+	background-image:url(assets/wof/third.png);
+	background-size:cover;
+	width:50px;
+	height:50px;
+	position:absolute;
+}
