@@ -1,3 +1,46 @@
+<?php
+	
+	if(!isset($_GET["order"]))
+	{
+		$_GET["order"] = "time ASC";
+	}
+	
+	$pdo = new PDO("mysql:host=localhost;dbname=memory","root","");
+	$leaderboard = $pdo->query("SELECT users.login, users.avatar, time, attempts, difficulty FROM games
+	INNER JOIN users ON users.id = games.id_user 
+	ORDER BY games.".htmlspecialchars($_GET["order"]))->fetchAll(PDO::FETCH_ASSOC);
+	
+	function create_rank($login, $avatar, $time, $attempts, $difficulty, $rank){
+		switch ($rank) 
+		{
+			case 0:
+				$rank="first";
+				break;
+			
+			case 1:
+				$rank="second";
+				break;
+				
+			case 2:
+				$rank="third";
+				break;
+			
+			default:
+				$rank="";
+				break;
+		}
+?>
+		<tr class="scored" id="<?=$rank?>">
+			<td class="pseudo-wof"><?=$login?><img src="<?=$avatar?>" class="wof-image"/></td>
+			<td><?=$time?></td>
+			<td><?=$attempts?></td>
+			<td><?=$difficulty?></td>
+		<tr>
+<?php
+	}
+?>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -19,35 +62,19 @@
 				
 				<tr>
 					<th>Pseudo</th>
-					<th><a href="wof.php?order=score">Score</a></th> 
-					<th><a href="wof.php?order=time">Time</a></th>
-					<th><a href="wof.php?order=try">Attempt</a></th>
-					<th><a href="wof.php?order=rank">Rank</a></th>
+					<th><a href="wof.php?order=time%20ASC">Time</a></th>
+					<th><a href="wof.php?order=attempts%20ASC">Attempt</a></th>
+					<th><a href="wof.php?order=difficulty%20DESC">Difficulty</a></th>
 				</tr>
 				
-				<tr class="scored" id="first">
-					<td class="pseudo-wof">Azefortwo<img src="assets/avatars/default/1.png" class="wof-image"/></td>
-					<td>150</td>
-					<td>00:00:26</td>
-					<td>15</td>
-					<td>1</td>
-				<tr>
-				
-				<tr class="scored" id="second">
-					<td class="pseudo-wof">Tulthul<img src="assets/avatars/default/3.png" class="wof-image"/></td>
-					<td>175</td>
-					<td>00:00:14</td>
-					<td>23</td>
-					<td>2</td>
-				<tr>
-				
-				<tr class="scored" id="third">
-					<td class="pseudo-wof">Om3ga3<img src="assets/avatars/default/7.png" class="wof-image"/></td>
-					<td>115</td>
-					<td>00:00:18</td>
-					<td>15</td>
-					<td>3</td>
-				<tr>
+				<?php 
+					$count = 0;
+					foreach($leaderboard as $score)
+					{
+						create_rank($score["login"], $score["avatar"],  $score["time"], $score["attempts"], $score["difficulty"], $count);
+						$count++;
+					}
+				?>
 				
 			</table>
 		</main>

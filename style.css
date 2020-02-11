@@ -248,11 +248,12 @@ select {
 
 .scored td{
 	background-image:url(assets/wof/back.png);
-	background-size:115px 60px;
+	background-size:115px 70px;
 	min-width:115px;
-	min-height:60px;
+	min-height:70px;
 	color:black;
 	font-weight:bold;
+	font-size:1.2em;
 }
 
 .pseudo-wof {
