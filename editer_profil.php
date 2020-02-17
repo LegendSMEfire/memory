@@ -120,13 +120,13 @@ if(count($_POST) > 0 || count($_FILES) > 0) {
 				</div>
 
 				<label for="login">Login</label>
-				<input type="text" name="login" value="<?= $user["login"] ?>"/>
+				<input type="text" name="login" value="<?= $user["login"] ?>" maxlength="50"/>
 
 				<label for="password">Mot de passe</label>
-				<input type="password" name="password"/>
+				<input type="password" name="password" maxlength="255"/>
 
 				<label for="passwordVerify">Mot de passe (confirmation)</label>
-				<input type="password" name="passwordVerify"/>
+				<input type="password" name="passwordVerify" maxlength="255"/>
 
 				<input type="submit" value="Changer" class="play-btn"/>
 			</form>

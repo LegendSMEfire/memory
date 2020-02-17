@@ -246,13 +246,13 @@ select {
 }
 
 .scored td {
-	background-image: url("assets/wof/back.png");
-	background-size: 115px 70px;
+	background: url("assets/sign-wood.png");
+	background-size: 100% 100%;
 	min-width: 115px;
 	min-height: 70px;
 	color: black;
 	font-weight: bold;
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .pseudo-wof {
