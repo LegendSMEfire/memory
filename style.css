@@ -129,7 +129,7 @@ header nav {
 }
 
 .radio-picture:checked ~ label > img {
-	background-image: url(assets/back.png);
+	background-image: url("assets/back.png");
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
@@ -227,72 +227,68 @@ select {
 
 
 .leaderboards{
-	width:500px;
-	text-align:center;
-	margin:auto;
-	border:0px;
-	border-spacing:10px;
+	width: 500px;
+	text-align: center;
+	margin: auto;
+	border: 0px;
+	border-spacing: 10px;
 }
 
-.leaderboards a
-{
-	color:white;
-	text-decoration:none;
+.leaderboards a {
+	color: white;
+	text-decoration: none;
 }
 
 .leaderboards th {
-	font-size:1.3em;
-	margin-bottom:15px;
-	border:0px;
+	font-size: 1.3em;
+	margin-bottom: 15px;
+	border: 0px;
 }
 
-.scored td{
-	background-image:url(assets/wof/back.png);
-	background-size:115px 70px;
-	min-width:115px;
-	min-height:70px;
-	color:black;
-	font-weight:bold;
-	font-size:1.2em;
+.scored td {
+	background-image: url("assets/wof/back.png");
+	background-size: 115px 70px;
+	min-width: 115px;
+	min-height: 70px;
+	color: black;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 
 .pseudo-wof {
-	display:flex;
-	flex-direction:column;
-	justify-content:center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .wof-image {
-	width:25px;
-	align-self:center;
+	width: 25px;
+	align-self: center;
 }
 
-#first::after
-{
-	content:"";
-	background-image:url(assets/wof/first.png);
-	background-size:cover;
-	width:50px;
-	height:50px;
-	position:absolute;
+.scored#rank-0::after {
+	content: "";
+	background-image: url("assets/wof/first.png");
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+	position: absolute;
 }
 
-#second::after
-{
-	content:"";
-	background-image:url(assets/wof/second.png);
-	background-size:cover;
-	width:50px;
-	height:50px;
-	position:absolute;
+.scored#rank-1::after {
+	content: "";
+	background-image: url("assets/wof/second.png");
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+	position: absolute;
 }
 
-#third::after
-{
-	content:"";
-	background-image:url(assets/wof/third.png);
-	background-size:cover;
-	width:50px;
-	height:50px;
-	position:absolute;
+.scored#rank-2::after {
+	content: "";
+	background-image: url("assets/wof/third.png");
+	background-size: cover;
+	width: 50px;
+	height: 50px;
+	position: absolute;
 }

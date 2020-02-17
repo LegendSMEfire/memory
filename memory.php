@@ -83,9 +83,9 @@ function finishGame() {
 		]);
 	}
 
+	header("Refresh: " . (isset($game["finished"]) ? "0" : "1.5") . "; URL=index.php?win=1");
 	$game["finished"] = true;
 	$disabled = true;
-	header("Refresh: 1.5; URL=index.php?win=1");
 }
 
 function getCardFrontState($id) {
@@ -136,7 +136,7 @@ if ($remainingTime > 60 * 10) {
 }
 
 if (!isset($_SESSION["game"])) {
-	header("Locationr: index.php");
+	header("Location: index.php");
 	die;
 } elseif (count($_SESSION["game"]["cards"] ?? []) > 0) {
 	$done = true;

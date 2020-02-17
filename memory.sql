@@ -27,7 +27,7 @@ USE `memory`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parties`
+-- Table structure for table `games`
 --
 
 DROP TABLE IF EXISTS `games`;
