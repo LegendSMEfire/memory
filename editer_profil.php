@@ -20,12 +20,13 @@ if (isset($_SERVER["CONTENT_LENGTH"]) && $_SERVER["CONTENT_LENGTH"] && !$_FILES 
 if(count($_POST) > 0 || count($_FILES) > 0) {
 	if (!empty($_POST["login"]) && $_POST["login"] != $user["login"]) {
 		$stmt = $db->prepare("SELECT * FROM users WHERE login = ?");
-		$stmt->execute([$_POST["login"]]);
+		$login = htmlentities($_POST["login"]);
+		$stmt->execute([$login]);
 		$existingUser = $stmt->fetch();
 		if (!$existingUser) {
 			$stmt = $db->prepare("UPDATE users SET login = ? WHERE id = ?");
 			if ($stmt->execute([
-				$_POST["login"],
+				$login,
 				$user["id"],
 			])) {
 				array_push($messages, "Login mis à jour avec succès");
@@ -120,7 +121,7 @@ if(count($_POST) > 0 || count($_FILES) > 0) {
 				</div>
 
 				<label for="login">Login</label>
-				<input type="text" name="login" value="<?= $user["login"] ?>" maxlength="50"/>
+				<input type="text" name="login" value="<?= htmlentities($user["login"]) ?>" maxlength="50"/>
 
 				<label for="password">Mot de passe</label>
 				<input type="password" name="password" maxlength="255"/>

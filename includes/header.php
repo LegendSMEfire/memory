@@ -6,8 +6,9 @@
 		<a href="inscription.php" class="header-link">Inscription</a>
 		<a href="connexion.php" class="header-link">Connexion</a>
 	<?php } else { ?>
-		<a href="editer_profil.php" class="header-link"><?= $_SESSION["user"]["login"] ?></a>
+		<a href="profil.php?id=<?= $_SESSION['user']['id'] ?>" class="header-link"><?= $_SESSION["user"]["login"] ?></a>
 		<a href="deconnexion.php" id="deco-btn" class="header-link">Déconnexion</a>
 	<?php } ?>
-	<a href="wof.php" id="deco-btn" class="header-link">Leaderboard</a>
+	<a href="communaute.php" class="header-link">Communauté</a>
+	<a href="wof.php" class="header-link">Wall of Fame</a>
 </nav>

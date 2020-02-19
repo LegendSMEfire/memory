@@ -14,7 +14,8 @@ $messages = [];
 
 if (count($_POST) > 0 && !in_array("", $_POST)) {
 	$stmt = $db->prepare("SELECT * FROM users WHERE login = ?");
-	$stmt->execute([$_POST["login"]]);
+	$login = htmlentities($_POST["login"]);
+	$stmt->execute([$login]);
 	$user = $stmt->fetch();
 
 	if ($user && password_verify($_POST["password"], $user["password"])) {
@@ -51,7 +52,7 @@ if (count($_POST) > 0 && !in_array("", $_POST)) {
 
 			<form id="narrow-form" method="post">
 				<label for="login">Login</label>
-				<input type="text" name="login" maxlength="50" required value="<?= $_POST["login"] ?? "" ?>"/>
+				<input type="text" name="login" maxlength="50" required value="<?= htmlentities($_POST['login']) ?? '' ?>"/>
 
 				<label for="password">Mot de passe</label>
 				<input type="password" name="password" maxlength="255" required/>

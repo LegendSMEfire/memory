@@ -226,8 +226,7 @@ select {
 /*---------------------------------------- WOF ----------------------------------------*/
 
 
-.leaderboards{
-	width: 500px;
+.leaderboards {
 	text-align: center;
 	margin: auto;
 	border: 0px;
@@ -245,20 +244,14 @@ select {
 	border: 0px;
 }
 
-.scored td {
+.scored td, .user-card {
 	background: url("assets/sign-wood.png");
 	background-size: 100% 100%;
-	min-width: 115px;
-	min-height: 70px;
-	color: black;
+	width: 128px;
+	height: 48px;
+	color: white;
 	font-weight: bold;
 	font-size: 1em;
-}
-
-.pseudo-wof {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 
 .wof-image {
@@ -291,4 +284,18 @@ select {
 	width: 50px;
 	height: 50px;
 	position: absolute;
+}
+
+.user-link {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-decoration: none;
+}
+
+.user-card {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
