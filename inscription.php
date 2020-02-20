@@ -26,8 +26,9 @@ if(count($_POST) > 0) {
 				if ($path && !preg_match("/assets(\\|\/)avatars(\\|\/)default(\\|\/)/i", $path)) {
 					$stmt = $db->prepare("INSERT INTO users(`login`, `password`, `avatar`)
 					VALUES (?, ?, ?)");
+					$login = htmlentities($_POST["login"]);
 					$stmt->execute([
-						$_POST["login"],
+						$login,
 						$hash,
 						$avatar
 					]);
@@ -73,7 +74,7 @@ if(count($_POST) > 0) {
 
 			<form id="narrow-form" method="post">
 				<label for="login">Login</label>
-				<input type="text" name="login" required maxlength="50" value="<?= htmlentities($_POST['login']) ?? "" ?>"/>
+				<input type="text" name="login" required maxlength="50" value="<?= htmlentities($_POST['login'] ?? "") ?>"/>
 
 				<label for="password">Mot de passe</label>
 				<input type="password" name="password" required maxlength="255"/>
