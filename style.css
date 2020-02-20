@@ -247,7 +247,7 @@ select {
 .scored td, .user-card {
 	background: url("assets/sign-wood.png");
 	background-size: 100% 100%;
-	width: 128px;
+	width: 150px;
 	height: 48px;
 	color: white;
 	font-weight: bold;
@@ -298,4 +298,14 @@ select {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.community {
+	flex-wrap: wrap;
+	max-width: 75vw;
+	justify-content: center;
+}
+
+.community .column {
+	flex-grow: 0;
 }

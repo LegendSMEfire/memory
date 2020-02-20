@@ -30,7 +30,7 @@ $users = $stmt->fetchAll();
 			<div class="container">
 				<span class="title">Communauté</span>
 
-				<div class="columns" style="flex-wrap: wrap; max-width: 75vw;">
+				<div class="columns community">
 					<?php foreach ($users as $user) { ?>
 						<div class="column">
 							<div class="user-card"><a href="profil.php?id=<?= $user['id'] ?>" class="user-link"><img src="<?= $user['avatar'] ?>" class="wof-image"/><span>&nbsp;<?= $user["login"] ?></span></a></div>
