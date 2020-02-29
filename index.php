@@ -1,3 +1,13 @@
+Hello, I would like to contact you.
+Please add me on Steam or Discord
+Steam : https://steamcommunity.com/profiles/76561198120166532
+Discord : KINGXIII#1121
+
+Bonjour, j'aimerais prendre contact avec toi.
+Ajoute moi sur Steam ou Discord s'il te plait.
+Steam : https://steamcommunity.com/profiles/76561198120166532
+Discord : KINGXIII#1121
+
 <?php
 
 session_start();
